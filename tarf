@@ -1,0 +1,84 @@
+List<(string Tarefa, bool Concluída)> tarefas = new List<(string, bool)>();
+
+
+string opcao;
+
+do
+{
+    Console.Clear();
+    Console.WriteLine("Lista De Tarefas");
+    Console.WriteLine("1. Adicionar Tarefas");
+    Console.WriteLine("2. Remover Tarefas");
+    Console.WriteLine("3. Marcar como Concluída");
+    Console.WriteLine("4. Ver Lista");
+    Console.WriteLine("0. Sair");
+    Console.Write("");
+    opcao = Console.ReadLine();
+
+    switch (opcao)
+    {
+        case "1":
+            Console.Write("Adicione uma Tarefa: ");
+            string tarefa = Console.ReadLine();
+
+            tarefas.Add((tarefa, false));
+
+            Console.WriteLine("Adicionada, pressione Enter pra continuar.");
+            Console.ReadLine();
+            break;
+        case "2":
+            for (int i = 0; i < tarefas.Count; i++)
+            {
+                Console.WriteLine($"{i + 1} - {tarefas[i]}");
+            }
+
+            Console.WriteLine("Remova a tarefa indesejada: ");
+
+            if (int.TryParse(Console.ReadLine(), out int numeroTarefa) && numeroTarefa >= 1 && numeroTarefa <= tarefas.Count)
+            {
+                tarefas.RemoveAt(numeroTarefa - 1);
+                Console.WriteLine("Tarefa removida, pressione Enter para continuar.");
+            }
+            else
+            {
+                Console.WriteLine("Tarefa inválida, pressione Enter para voltar.");
+            }
+
+            Console.ReadLine();
+
+            break;
+        case "3":
+            for (int i = 0; i < tarefas.Count; i++)
+            {
+                Console.WriteLine($"{i + 1} - {tarefas[i].Tarefa} - {(tarefas[i].Concluída ? "Concluído" : "Pendente")}");
+            }
+
+            Console.WriteLine("Digite a tarefa qual foi concluída:");
+
+            if (int.TryParse(Console.ReadLine(), out int numeroTarefaConcluida) && numeroTarefaConcluida >= 1 && numeroTarefaConcluida <= tarefas.Count)
+            {
+                tarefas[numeroTarefaConcluida - 1] = (tarefas[numeroTarefaConcluida - 1].Tarefa, true);
+                Console.WriteLine("Tarefa concluída, pressione Enter para continuar.");
+            }
+            else
+            {
+                Console.WriteLine("Tarefa inválida, pressione Enter para voltar.");
+            }
+
+            Console.ReadLine();
+
+            break;
+        case "4":
+            Console.WriteLine("Sua Lista:");
+            for (int i = 0; i < tarefas.Count; i++)
+            {
+                 Console.WriteLine($"{i + 1} - {tarefas[i].Tarefa} - {(tarefas[i].Concluída ? "Concluído": "Pendente")}");
+            }
+
+            Console.WriteLine("Pressione Enter pra continuar.");
+            Console.ReadLine();
+            break;
+
+    }
+    
+} while (opcao != "0");
